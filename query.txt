@@ -1,0 +1,33 @@
+CREATE TABLE ISCRIZIONE_MD5 AS SELECT MD5(a.nome),MD5(a.cognome),a.nome,a.cognome FROM alunno a
+
+REPLACE INTO `ISCRIZIONE_MD5` SELECT MD5(a.nome),MD5(a.cognome),a.nome,a.cognome FROM alunno a
+
+CREATE TABLE IF NOT EXISTS `ISCRIZIONE_MD5` (
+  `MD5nome` varchar(32) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `MD5cognome` varchar(32) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `nome` varchar(32) NOT NULL DEFAULT '',
+  `cognome` varchar(32) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `iscrizione` (
+  `nome_alunno` varchar(32) DEFAULT NULL,
+  `cognome_alunno` varchar(32) DEFAULT NULL,
+  `id_forum` int(11) DEFAULT NULL,
+  KEY `nome_alunno` (`nome_alunno`,`cognome_alunno`),
+  KEY `id_forum` (`id_forum`)
+) 
+
+// visualizza tutti i forum e i loro numeri di iscritti
+
+SELECT f.nome,count(i.nome_alunno) from iscrizione i join forum f on i.id_forum=f.id group by f.nome
+
+// numero di iscritti a ciascun forum e portata massima del forum
+
+SELECT f.nome,iscrizioni.data_scelta,Count(*) as n,f.portata 
+    FROM ( SELECT DISTINCT id_forum , nome_alunno , cognome_alunno,data_scelta FROM iscrizione ) as iscrizioni 
+    join forum f on iscrizioni.id_forum=f.id 
+    group by iscrizioni.id_forum,iscrizioni.data_scelta
+
+// numero totale di iscrizioni effettuate
+
+SELECT Count(*) as n FROM ( SELECT DISTINCT id_forum , nome_alunno , cognome_alunno,data_scelta FROM iscrizione ) as iscrizioni
