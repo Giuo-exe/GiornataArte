@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+nav{
+  display: relative;
+  orientation: horizontal;
+  min-height: 8vh;
+  font-family:  'Poppins', sans-serif;
+  background: #a8ff78;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #04ac6c, #32c365);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #04ac6c, #32c365); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  padding: 20px 10%;
+}
+
+.logo {
+  position:fixed;
+  margin-right: 100px;
+  justify-content: initial;
+  color: #edf0f1;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 40px;
+}
+
+.group{
+  display: grid;
+  grid-template-columns: 50px 50px;
+  margin-left: 90%;
+  justify-content: initial;
+  color: #edf0f1;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 40px;
+  height: 50px;
+}
+
+.avatar{
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   background-color: #F67F11;
+}
+
+.info{
+  display: grid;
+  margin: auto;
+  width: 50%;
+  grid-template-rows: 30px 30px;
+}
+
+.info h4{
+  font: sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #FFFFFF;
+  font-size: 24px;
+}
+
+.info h3{
+  margin: 0;
+  padding: 0;
+  color: #FFFFFF;
+  font-size: 16px;
+}
+
+.contenitore{
+  left:10%;
+  right: 10%;
+
+}

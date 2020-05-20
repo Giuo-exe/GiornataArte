@@ -1,6 +1,6 @@
 <!doctype html>
-<?php 
-include 'Functions.php'; 
+<?php
+include 'Functions.php';
 session_start();
 ?>
 <html lang="ita">
@@ -8,14 +8,14 @@ session_start();
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 	<link rel="stylesheet" type="text/css" href="forms.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-	
+
 
 	<!-- code -->
-	
+
 	<div align=center >
 	</br>
 	</br>
@@ -25,55 +25,52 @@ session_start();
 	<font size="7">ISCRIZIONE FORUM</font>
 	</br>
 	</br>
-	
-	<form action="index.php?recoverscroll" method=post class="w-75 mx-auto" align=center>
+
+	<form action="autentication.php" method=post class="w-75 mx-auto" align=center>
 	  <div class="form-group ">
-		<input name="name" value=<?php if(isset($_SESSION["name"]) && $_SESSION["name"]!="") echo $_SESSION["name"]; else echo '""'; ?> placeholder="inserisci il tuo nome" type="text" class="form-control" id="exampleInput" >
-	  </div>
-	  <div class="form-group">
-		<input name="surname" value=<?php if(isset($_SESSION["surname"]) && $_SESSION["surname"]!="") echo $_SESSION["surname"]; else echo '""'; ?> placeholder="inserisci il tuo cognome" type="text" class="form-control" id="exampleInputPassword1" >
+		<input name="matricola" placeholder="inserisci il tuo nome" type="text" class="form-control" id="exampleInput" >
 	  </div>
 	  <button type="submit" class="btn btn-primary">CONFERMA</button>
 	</form>
 
 	<?php
-	
+
 	//  database_connection();
-	
+
 	$name;
 	$surname;
-	
+
 	$forum;
-	
+
 	if(isset($_POST["surname"]) && isset($_POST["surname"])){
 		$name=$_POST["name"];
 		$surname=$_POST["surname"];
-		
+
 		$_SESSION["name"] = $name;
 		$_SESSION["surname"] = $surname;
 	}
-	
+
 	if(isset($_POST["forum"])){
 		$forum=$_POST["forum"];
-		
+
 		$_SESSION["forum"] = $forum;
 	}
-	
+
 	if(isset($_SESSION["name"]) && isset($_SESSION["surname"]) && $_SESSION["name"]!="" && $_SESSION["surname"]!=""){
-		
-		
-		
+
+
+
 		echo('
 		</br>
 		</br>
 		<div class="w-75 bg-light rounded-lg">
-		
+
 		</br>
 		</br>
 		<font size="5">'.strtoupper($_SESSION["name"]).' '.strtoupper($_SESSION["surname"]).'</br> SCEGLI UN FORUM</font>
 		</br>
 		</br>
-		
+
 		<form action="index.php?recoverscroll" method=post class="w-75">
 				<select name="forum" class="form-control form-control-lg w-100">
 			  ');
@@ -86,15 +83,15 @@ session_start();
 			</br>
 
   		</form>
-		
+
 		');
-		
+
 		if(isset($_SESSION["forum"])){
-		
+
 		$results=get_forum_data($_SESSION["forum"]);
 		$_SESSION["results"]=$results;
 
-				
+
 		if(isset($_SESSION["results"]) && $results!="not set"){
 			echo('
 		<form action="index.php" method=post class="w-75">
@@ -137,7 +134,7 @@ session_start();
 		  </div>
 		</div>
 		');
-		
+
 		if($_SESSION["results"]["data"]=="Entrambi"){
 			echo('
 			</br>
@@ -151,15 +148,15 @@ session_start();
 
 			');
 		}
-		
+
 		echo('
 		</br>
-		
+
 		<button type="submit" name="subscribed" value="true" class="btn btn-primary p-4">ISCRIVITI A '.strtoupper($_SESSION["forum"]).'</button>
-		
+
 		</form>
 		');
-		
+
 		if(isset($_POST["subscribed"]) && $_POST["subscribed"]=="true"){
 			echo("</br>");
 			if(isset($_POST["data_scelta"])){
@@ -170,28 +167,28 @@ session_start();
 			}
 			$_SESSION["results"]="";
 		}
-		
+
 		}
-		
+
 	}
-		
+
 		echo('
-		
-		
+
+
 		</br>
 		</br>
 		</div>
-		
+
 		');
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	?>
-	
+
 	</br>
 	</br>
 	</br>
