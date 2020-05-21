@@ -14,33 +14,28 @@
 
     if ( $records == TRUE) {
         //echo "<br>Query eseguita!";
-        if(empty($records)){
-          echo "sdasdasd";
-          if(InserisciPrenotazione($id,$matricola)){
-            echo "<h1>Prenotazione Effettuata</h1>";
-            header("refresh:2; url=index.php");
-          }
-        }else{
-          echo "<h1>Prenotazione non Effettuata</h1>";
-          header("refresh:2; url=index.php");
-        }
+
     } else {
       die("Errore nella query: " . $conn->error);
     }
     //gestisco gli eventuali dati estratti dalla query
     if($records->num_rows == 0){
-      echo "";
+        if(InserisciPrenotazione($id,$matricola)){
+          echo "<h1>Prenotazione Effettuata</h1>";
+          header("refresh:2; url=index.php");
+        }else{
+          echo "<h1>Prenotazione non Effettuata</h1>";
+          header("refresh:2; url=index.php");
+        }
     }else{
-      while($tupla=$records-> fetch_assoc()){
-        $matricola=$tupla['matricola'];
-        $id=$tupla['id_prenotazione'];
-      }
+      echo "<h1>Prenotazione non Effettuata perché sei gia registrato</h1>";
+      header("refresh:2; url=index.php");
     }
   }
 
 
   function InserisciPrenotazione($id,$matricola){
-    $sql="INSERT INTO prenotazione ('matricola','id_prenotazione') VALUES ('$matricola','$id')";
+    $sql="INSERT INTO prenotazioni (matricola,id_eventi) VALUES ('$matricola','$id')";
       $conn=connect();
           if ($conn->query($sql) === TRUE) {
             $conn->close();

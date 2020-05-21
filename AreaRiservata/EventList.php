@@ -21,7 +21,7 @@
     <header>
       <nav>
         <div class="logo">
-          <h4>Sala Stampa</h4>
+          <h4>Giornata Dell'Arte</h4>
         </div>
         <a href="logout.php">
           <div class="group">
@@ -47,14 +47,25 @@
       </div>
     </div>
 
-    <script>
+
+    <p id="demo"></p>
+
+  <script>
+    function myFunction() {
+      var txt;
+      if (confirm("Press a button!")) {
+        txt = "You pressed OK!";
+      } else {
+        txt = "You pressed Cancel!";
+      }
+      document.getElementById("demo").innerHTML = txt;
+  }
       function Conferma(id,tema){
         var r = confirm("Sei sicuro di voler partecipare a "+tema+"?");
         if (r == true) {
-          document.location.href="stampa.php?&id="+id;
+          document.location.href="prenota.php?&id="+id;
         }
       }
-
     </script>
 
 </body>
@@ -95,8 +106,10 @@
   }
 
   function createEvents($id, $tema, $luogo, $professori , $giorno, $ora){
-    return "<li class='w3-bar' onclick='Conferma($id,$tema)'>
-              <span onclick='Conferma($id,$tema)' class='w3-bar-item w3-button w3-white w3-xlarge w3-right'>✅</span>
+    return "<li class='w3-bar'>
+              <a href='prenota.php?id=$id'>
+              <span class='w3-bar-item w3-button w3-white w3-xlarge w3-right'>✅</span>
+                </a>
                 <img src='img_avatar2.png' class='w3-bar-item w3-circle w3-hide-small' style='width:85px'>
                 <div class='w3-bar-item'>
                   <span class='w3-large'>$tema - $professori</span><br>

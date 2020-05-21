@@ -11,7 +11,7 @@
     <header>
       <nav>
         <div class="logo">
-          <h4>Sala Stampa</h4>
+          <h4>Giornata Dell'Arte</h4>
         </div>
         <a href="logout.php">
           <div class="group">
@@ -30,16 +30,16 @@
     <div class="container">
       <div class="box">
         <a href="EventList.php">
-          <h2>Prenota una Stampa</h2>
+          <h2>Prenota un Evento</h2>
           <br>
-          <p>In questa sezione puoi prenotare la sua stampa e allegare il file di conseguenda</pack>
+          <p>In questa sezione puoi prenotare gli eventi al quale puoi partecipare </pack>
         </a>
       </div>
       <div class="box">
         <a href="operator/manage.php">
           <h2>Lista Prenotazioni</h2>
           <br>
-          <p>In questa sezione è possibile gestire le tue prenotazioni o se sei un operatore anche quelle degli altri </pack>
+          <p>In questa sezione è possibile gestire le tue prenotazioni</pack>
         </a>
       </div>
       <div class="box">
