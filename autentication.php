@@ -66,14 +66,14 @@ session_start();
 
   function settacookie($matricola){
     if(!isset($_COOKIE["matricola"])) {
-      setcookie("matricola", $matricola, time() + (60 * 30), "/");
+      setcookie("matricola", $matricola, time() + (3600 * 30), "/");
     }
   }
 
   function createToken($matricola){
     $random=rand(0,100000);
     $token=md5($matricola.$random);
-    setcookie("token", $token, time() + (60 * 30), "/");
+    setcookie("token", $token, time() + (3600 * 30), "/");
     $_SESSION["token"]=$_COOKIE["token"];
   }
 

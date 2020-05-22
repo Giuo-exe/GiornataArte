@@ -28,7 +28,7 @@ session_start();
 
 	<form action="autentication.php" method=post class="w-75 mx-auto" align=center>
 	  <div class="form-group ">
-		<input name="matricola" placeholder="inserisci il tuo nome" type="text" class="form-control" id="exampleInput" >
+		<input name="matricola" placeholder="inserisci la tua matricola" type="text" class="form-control" id="exampleInput" >
 	  </div>
 	  <button type="submit" class="btn btn-primary">CONFERMA</button>
 	</form>

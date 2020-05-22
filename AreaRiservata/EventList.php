@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style2.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
   <body>
@@ -98,19 +98,20 @@
         $professori=$tupla['professori'];
         $giorno=$tupla['giorno'];
         $ora=$tupla['ora'];
+        $foto=$tupla['foto'];
         //creazione lista in modo dinamico
-        $lista.=createEvents($id, $tema, $luogo, $professori , $giorno, $ora);
+        $lista.=createEvents($id, $tema, $luogo, $professori , $giorno, $ora, $foto);
       }
       echo $lista;
     }
   }
 
-  function createEvents($id, $tema, $luogo, $professori , $giorno, $ora){
+  function createEvents($id, $tema, $luogo, $professori , $giorno, $ora, $foto){
     return "<li class='w3-bar'>
               <a href='prenota.php?id=$id'>
               <span class='w3-bar-item w3-button w3-white w3-xlarge w3-right'>✅</span>
                 </a>
-                <img src='img_avatar2.png' class='w3-bar-item w3-circle w3-hide-small' style='width:85px'>
+                <img src='img/$foto' class='w3-bar-item w3-circle w3-hide-small' style='width:85px'>
                 <div class='w3-bar-item'>
                   <span class='w3-large'>$tema - $professori</span><br>
                   <span>$luogo    -     $giorno, $ora</span>

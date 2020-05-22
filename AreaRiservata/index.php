@@ -20,7 +20,7 @@
             </div>
 
             <div class="info">
-              <h4><?php echo $_SESSION['nome'];?></h4>
+              <h4>Giuo</h4>
               <h3>LogOut</h3>
             </div>
           </div>
@@ -36,25 +36,10 @@
         </a>
       </div>
       <div class="box">
-        <a href="operator/manage.php">
+        <a href="ViewPrenotazioni.php">
           <h2>Lista Prenotazioni</h2>
           <br>
           <p>In questa sezione è possibile gestire le tue prenotazioni</pack>
-        </a>
-      </div>
-      <div class="box">
-        <a href="operator/viewstamp.php">
-          <h2>Cronologia Stampe</h2>
-          <br>
-          <p>Sezione per vedere la cronologia delle stampe effettuate</pack>
-        </a>
-      </div>
-      <div class="box">
-        <a href="">
-          <br>
-          <h2>Quadrato di simmetria</h2>
-          <br>
-          <p>Bottom text</pack>
         </a>
       </div>
     </div>

@@ -1,9 +1,12 @@
 <?php
 session_start();
 
+include "ClasseEvento.php";
+include "connection.php";
+
 function prendidati(){
-    $ownuser= $_SESSION['username'];
-    $sql = "SELECT e.tema,e.luogo,e.professori,e.gioro,e.ora from prenotazioni p join eventi e on p.matricola=e.matricola where p.matricola=$ownuser";
+    $ownuser= $_SESSION['matricola'];
+    $sql = "SELECT * from prenotazioni p join eventi e on p.id_eventi=e.id where p.matricola=$ownuser";
     $conn=connect();
     $records=$conn->query($sql);
 
@@ -14,19 +17,18 @@ function prendidati(){
     }
     //gestisco gli eventuali dati estratti dalla query
     if($records->num_rows == 0){
-      echo "";
+      echo "<h1 id='presente'>Non ti sei prenotato a niente</h1>";
     }else{
       if($records){
         while($tupla=$records-> fetch_assoc()){
-          $id=$tupla['id_stampa'];
-          $copie=$tupla['n_copie'];
-          $pagine=$tupla['pagine'];
-          $tipo=$tupla['tipo'];
-          $costo=$tupla['costo'];
-          $richiedente=$tupla['richiedente'];
-          $operatore=$tupla['operatore'];
-          $data=$tupla['date'];
-          $oggetto = new stampa($id,$copie,$pagine,$tipo,$costo,$richiedente,$operatore,$data);
+          $id=$tupla['id'];
+          $tema=$tupla['tema'];
+          $luogo=$tupla['luogo'];
+          $professori=$tupla['professori'];
+          $giorno=$tupla['giorno'];
+          $ora=$tupla['ora'];
+          $foto=$tupla['foto'];
+          $oggetto = new eventi($id,$tema,$luogo,$professori,$giorno,$ora,$foto);
           $preno[] = $oggetto;
         }
         return $preno;
@@ -40,7 +42,7 @@ function prendidati(){
     $prenotazioni=prendidati();
     $oggi = date("Y-m-d");     //date("h:i", strtotime(
     if(!empty($prenotazioni)){
-      $Attributi = Array("Richiedente","Copie","Pagine","Formati","Costo","Operatore","Data");
+      $Attributi = Array("Tema","Luogo","Professori","Giorno","Ora","Operazione");
 
 
       $tabella = "<table class='content-table'>";
@@ -57,29 +59,18 @@ function prendidati(){
 
       foreach($prenotazioni as $a){
 
-        $now = $a -> get_data();
-        $nowbutdate = date("Y-m-d", strtotime($now));
-        $or="";
-
-        if(strtotime(date($nowbutdate)) < strtotime(date("Y-m-d"))){
-          $or = "<h4 id='passato'>Giorni passati</h4>";
-        }else if(strtotime(date($nowbutdate)) == strtotime(date("Y-m-d"))){
-          $or = "<h4 id='oggi'>".date("H:i", strtotime($now))."</h4>";
-        }
-
-        $id = $a -> get_id();
+        $id = $a -> getId();
 
         // $or = date("Y-m-d", strtotime($now) < date("Y-m-d") ? "<h4 id: '#passato' >Giorni passati</h4>" : (date("Y-m-d", strtotime($now) == date("Y-m-d")) ? "<h4 id='oggi'>".date("h:i:sa", strtotime($now))."</h4>" : "<h4 id='futuro'>Prossimamente</h4>"));
+        //da rivedere
+        $tabella.= "<tr>";
 
-        $tabella.= $_SESSION['ruolo']=="operatore" ? "<tr data-href='operation.php?id=$id&stamp=si'>" : "<tr>";
-
-        $tabella.= "<td>".$a -> get_richiedente()."</td>".
-          "<td>".$a -> get_copie()."</td>".
-          "<td>".$a -> get_pagine()."</td>".
-          "<td>".$a -> get_tipo()."</td>".
-          "<td>".$a -> get_costo()." €</td>".
-          "<td>".$a -> get_operatore()."</td>".
-          "<td>".$or."</td>"; //.date("h:i", strtotime($a -> get_orario()))
+        $tabella.= "<td>".$a -> getTema()."</td>".
+          "<td>".$a -> getLuogo()."</td>".
+          "<td>".$a -> getProfessori()."</td>".
+          "<td>".$a -> getGiorno()."</td>".
+          "<td>".$a -> getOra()." </td>".
+          "<td><a href='delete.php?id=$id'>❌</a></td>";
         $tabella.="</tr>";
       }
 
@@ -91,8 +82,6 @@ function prendidati(){
 
     }
   }
-
-  if(check()){
     ?>
     <html>
     <head>
@@ -101,11 +90,19 @@ function prendidati(){
       <title>Cronologia Stampe</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="css/styleStampa.css">
+      <link rel="stylesheet" href="css/stylePrenotazioni.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </head>
     <body>
-      <center><h1 id="oggi">Cronologia Stampa</h1></center>
+      <div class='ripple-background'>
+        <div class='circle xxlarge shade1'></div>
+        <div class='circle xlarge shade2'></div>
+        <div class='circle large shade3'></div>
+        <div class='circle mediun shade4'></div>
+        <div class='circle small shade5'></div>
+      </div>
+
+      <center><h1 id="oggi">Prenotazione</h1></center>
       <?php tabella();?>
       <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -121,14 +118,6 @@ function prendidati(){
     <body>
     <html>
     <?php
-  }else{
-    echo "<html>
-    <a href='../../index.php'>
-    <h1>Non puoi accedere a questa pagina
-
-
-    </html>";
-  }
 
 
 
